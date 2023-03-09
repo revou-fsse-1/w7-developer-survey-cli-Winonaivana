@@ -16,7 +16,7 @@ const questions = [
   {
     type: "input",
     name: "email",
-    message: "Hello , What is your email?",
+    message: "Hello, What is your email?",
     validate: (answer) => {
       if (answer === "") {
         return "Please enter a valid email";
@@ -62,12 +62,18 @@ const questions = [
     when: ({ experience }) => experience === "Yes",
   },
   {
-    type: "number",
+    type: "input",
     name: "Salary",
     message: "What is your desired salary?",
     validate: (answer) => {
       if (answer < 1) {
         return "Please enter a valid amount";
+      }
+      return true;
+    },
+    validate: (answer) => {
+      if (isNaN(answer)) {
+        return "Please enter a valid number";
       }
       return true;
     },
