@@ -20,12 +20,6 @@ const questions = [
     message: function (answers) {
       return `Hello ${answers.name}, what is your email address?`;
     },
-    validate: (answer) => {
-      if (answer === "") {
-        return "Please enter a valid email";
-      }
-      return true;
-    },
     validate: function (input) {
       // Check if the input ends with "@gmail.com"
       if (input.endsWith("@gmail.com")) {
