@@ -13,15 +13,26 @@ const questions = [
       return true;
     },
   },
+
   {
     type: "input",
     name: "email",
-    message: "Hello, What is your email?",
+    message: function (answers) {
+      return `Hello ${answers.name}, what is your email address?`;
+    },
     validate: (answer) => {
       if (answer === "") {
         return "Please enter a valid email";
       }
       return true;
+    },
+    validate: function (input) {
+      // Check if the input ends with "@gmail.com"
+      if (input.endsWith("@gmail.com")) {
+        return true; // Valid input
+      } else {
+        return 'Please enter a valid email address ending with "@gmail.com"';
+      }
     },
   },
   {
@@ -50,7 +61,7 @@ const questions = [
   },
   {
     type: "checkbox",
-    name: "Library",
+    name: "library",
     message: "What JavaScript library do you use?",
     choices: ["React.js", "Vue", "Angular", "Node.js", "jQuery", "D3.js"],
     validate: (answer) => {
