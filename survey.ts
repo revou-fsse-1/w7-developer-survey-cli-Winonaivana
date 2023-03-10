@@ -1,26 +1,26 @@
-"use strict";
-exports.__esModule = true;
-var inquirer_1 = require("inquirer");
-var questions = [
+import inquirer, { Answers, Question } from "inquirer";
+
+const questions: Question[] = [
   // Type your question here
   {
     type: "input",
     name: "name",
     message: "What is your name?",
-    validate: function (answer) {
+    validate: (answer: string) => {
       if (answer === "") {
         return "Please enter a valid name";
       }
       return true;
     },
   },
+
   {
     type: "input",
     name: "email",
-    message: function (answers) {
-      return "Hello ".concat(answers.name, ", what is your email address?");
+    message: (answers: Answers) => {
+      return `Hello ${answers.name}, what is your email address?`;
     },
-    validate: function (input) {
+    validate: (input: string) => {
       // Check if the input ends with "@gmail.com"
       if (input.endsWith("@gmail.com")) {
         return true; // Valid input
@@ -34,7 +34,7 @@ var questions = [
     name: "experience",
     message: "Are you an experienced developer?",
     choices: ["Yes", "No"],
-    validate: function (answer) {
+    validate: (answer: string) => {
       if (answer.length < 1) {
         return "Please choose an answer";
       }
@@ -45,53 +45,48 @@ var questions = [
     type: "list",
     name: "length of experience",
     choices: ["0-1", "1-3", "3-5", "5-10", "10+"],
-    validate: function (answer) {
+    validate: (answer: string) => {
       if (answer.length < 1) {
         return "Please choose an answer";
       }
       return true;
     },
-    when: function (answers) {
-      return answers.experience === "Yes";
-    },
+    when: (answers: Answers) => answers.experience === "Yes",
   },
   {
     type: "checkbox",
     name: "library",
     message: "What JavaScript library do you use?",
     choices: ["React.js", "Vue", "Angular", "Node.js", "jQuery", "D3.js"],
-    validate: function (answer) {
+    validate: (answer: string[]) => {
       if (answer.length < 1) {
         return "Please choose an answer";
       }
       return true;
     },
-    when: function (answers) {
-      return answers.experience === "Yes";
-    },
+    when: (answers: Answers) => answers.experience === "Yes",
   },
   {
     type: "input",
     name: "Salary",
     message: "What is your desired salary?",
-    validate: function (answer) {
+    validate: (answer: number | string) => {
       if (isNaN(Number(answer)) || Number(answer) < 1) {
         return "Please enter a valid number";
       }
       return true;
     },
-    when: function (answers) {
-      return answers.experience === "Yes";
-    },
+    when: (answers: Answers) => answers.experience === "Yes",
   },
 ];
+
 // run your command
-inquirer_1["default"]
+inquirer
   .prompt(questions)
-  .then(function (answers) {
+  .then((answers) => {
     console.log(JSON.stringify(answers, null, 2));
   })
-  ["catch"](function (error) {
+  .catch((error) => {
     if (error.isTtyError) {
       console.log("Your console environment is not supported!");
     } else {
